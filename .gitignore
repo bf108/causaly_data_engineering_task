@@ -1,0 +1,5 @@
+*.DS_Store
+*.venv
+Causaly_Data_Engineering_Assignment__1_
+*__pycahce__
+*.pyc
