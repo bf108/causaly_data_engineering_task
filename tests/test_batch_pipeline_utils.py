@@ -1,6 +1,7 @@
 import pytest
 from causaly.src.batch_pipeline_utils import get_all_elements
 from causaly.src.batch_pipeline_utils import get_lowercase_of_string
+from causaly.src.batch_pipeline_utils import get_permutations_of_size_n
 from causaly.src.batch_pipeline_utils import get_single_element
 from causaly.src.batch_pipeline_utils import get_xlm_tree
 from causaly.src.batch_pipeline_utils import replace_comma_space_with_underscore
@@ -90,3 +91,18 @@ def test_replace_comma_space_with_underscore():
     assert replace_comma_space_with_underscore("hello,world") == "hello,world"
     assert replace_comma_space_with_underscore("hello world") == "hello_world"
     assert replace_comma_space_with_underscore("hello,    world") == "hello_world"
+
+
+def test_get_permutations_of_size_n():
+    values = ["a", "b", "c"]
+    n = 2
+    result = get_permutations_of_size_n(values, n)
+    expected_result = [
+        ("a", "b"),
+        ("a", "c"),
+        ("b", "a"),
+        ("b", "c"),
+        ("c", "a"),
+        ("c", "b"),
+    ]
+    assert result == expected_result
