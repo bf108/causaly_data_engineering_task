@@ -66,7 +66,7 @@ def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
     for meeting_abstract in meeting_abstracts:
         # Find the NlmDcmsID - Unique ID
         nlm_dcms_id_element = get_single_element(meeting_abstract, "NlmDcmsID")
-        if nlm_dcms_id_element:
+        if isinstance(nlm_dcms_id_element, _Element):
             nlm_dcms_id = nlm_dcms_id_element.text
             # Find all KeywordList elements and extract Keyword elements
             keyword_lists = get_all_elements(
