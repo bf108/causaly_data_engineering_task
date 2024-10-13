@@ -1,0 +1,132 @@
+<!-- NLMMeetingAbstract DTD
+
+
+     Comments and suggestions are welcome.
+     January  1, 2012
+
+    Revised: July 26, 2011
+
+     This is the DTD which the U.S. National Library of Medicine
+     has written for Internal Use.
+
+      Export DTD
+
+
+     NOTE:  The use of "Medline" in a DTD or element name does not mean the record
+    represents a citation from a Medline-selected journal.  When the NLM DTDs and
+    XML elements were first created, MEDLINE records were the only data exported.
+    Now NLM exports citations other than MEDLINE records using these tools. To
+    minimize unnecessary disruption to users of the data and tools, NLM has
+    retained the original DTD and element names (e.g., MedlineDate, MedlineTA,
+    MedlineJournalInfo, MedlinePgn)).
+
+    NOTE:  StartPage and EndPage in Pagination element are not currently used;
+           are reserved for future use.
+
+* = 0 or more occurrences (optional element, repeatable)
+? = 0 or 1 occurrences (optional element, at most 1)
++ = 1 or more occurrences (required element, repeatable)
+| = choice, one or the other but not both
+no symbol = required element
+
+       -->
+<!-- ================================================================= -->
+<!---  Revision Notes Section                                          -->
+<!--
+    The following changes were made:
+
+        a. Changed nlmmeetingabstractset_110101.dtd to
+           nlmmeetingabstractset_120101.dtd
+        b. Added new KeywordList Owner attribute valid value HHS.
+
+   -->
+<!-- ================================================================= -->
+<!ELEMENT Abstract (AbstractText,CopyrightInformation?)>
+<!ELEMENT AbstractText (#PCDATA)>
+<!ELEMENT AccessionNumber (#PCDATA)>
+<!ELEMENT AccessionNumberList (AccessionNumber+)>
+<!ELEMENT Acronym (#PCDATA)>
+<!ELEMENT Affiliation (#PCDATA)>
+<!ELEMENT Agency (#PCDATA)>
+<!ELEMENT Article (Journal, ArticleTitle?, ((Pagination, ELocationID*) | ELocationID+), Abstract?, Affiliation?, AuthorList?, Language+, DataBankList?, GrantList?, PublicationTypeList, VernacularTitle?, ArticleDate*)>
+<!ATTLIST Article PubModel (Print | Print-Electronic | Electronic | Electronic-Print) #REQUIRED>
+<!ELEMENT ArticleDate (Year,Month?,Day?)>
+<!ATTLIST ArticleDate DateType CDATA  #FIXED "Electronic">
+<!ELEMENT ArticleTitle (#PCDATA)>
+<!ELEMENT Author (((LastName,ForeName?, Initials?,Suffix?) | CollectiveName), Affiliation?, OtherInformation?)>
+<!ATTLIST Author ValidYN (Y | N) "Y">
+<!ELEMENT AuthorList (Author+)>
+<!ATTLIST AuthorList CompleteYN (Y | N) "Y">
+<!ELEMENT CitationSubset (#PCDATA)>
+<!ELEMENT CollectiveName (#PCDATA)>
+<!ELEMENT CopyrightInformation (#PCDATA)>
+<!ELEMENT Country (#PCDATA)>
+<!ELEMENT DataBank (DataBankName, AccessionNumberList?)>
+<!ELEMENT DataBankList (DataBank+)>
+<!ATTLIST DataBankList CompleteYN (Y | N) "Y">
+<!ELEMENT DataBankName (#PCDATA)>
+<!ELEMENT DateCompleted (Year,Month,Day)>
+<!ELEMENT DateCreated (Year,Month,Day)>
+<!ELEMENT DateRevised (Year,Month,Day)>
+<!ELEMENT Day (#PCDATA)>
+<!ELEMENT DeleteMeetingAbstract (NlmDcmsID+)>
+<!ELEMENT ELocationID (#PCDATA)>
+<!ATTLIST ELocationID EIdType (doi | pii) #REQUIRED ValidYN  (Y | N) "Y">
+<!ELEMENT EndPage (#PCDATA)>
+<!ELEMENT ForeName (#PCDATA)>
+<!ELEMENT GeneSymbol (#PCDATA)>
+<!ELEMENT GeneSymbolList (GeneSymbol+)>
+<!ELEMENT GeneralNote (#PCDATA)>
+<!ATTLIST GeneralNote Owner (AIDS | NLM | NASA | HMA | NOTNLM | LHC) "NLM">
+<!ELEMENT Grant (GrantID?, Acronym?, Agency?, Country)>
+<!ELEMENT GrantID (#PCDATA)>
+<!ELEMENT GrantList (Grant+)>
+<!ATTLIST GrantList CompleteYN (Y | N) "Y">
+<!ELEMENT ISOAbbreviation (#PCDATA)>
+<!ELEMENT ISSN (#PCDATA)>
+<!ATTLIST ISSN IssnType  (Electronic | Print | Undetermined) #REQUIRED>
+<!ELEMENT ISSNLinking (#PCDATA)>
+<!ELEMENT Initials (#PCDATA)>
+<!ELEMENT Investigator (LastName,ForeName?, Initials?,Suffix?, Affiliation?)>
+<!ATTLIST Investigator ValidYN (Y | N) "Y">
+<!ELEMENT InvestigatorList (Investigator+)>
+<!ELEMENT Issue (#PCDATA)>
+<!ELEMENT Journal (ISSN?, JournalIssue, Title?, ISOAbbreviation?)>
+<!ELEMENT JournalIssue (Volume?, Issue?, PubDate)>
+<!ATTLIST JournalIssue CitedMedium (Internet | Print) #REQUIRED>
+<!ELEMENT Keyword (#PCDATA)>
+<!ATTLIST Keyword MajorTopicYN (Y | N) "N">
+<!ELEMENT KeywordList (Keyword+)>
+<!ATTLIST KeywordList Owner (AIDS | NLM | NLM-AUTO | NASA | HMA | NOTNLM | HHS) "NLM">
+<!ELEMENT Language (#PCDATA)>
+<!ELEMENT LastName (#PCDATA)>
+<!ELEMENT MedlineDate (#PCDATA)>
+<!ELEMENT MedlineJournalInfo (Country?, MedlineTA, NlmUniqueID?, ISSNLinking?)>
+<!ELEMENT MedlinePgn (#PCDATA)>
+<!ELEMENT MedlineTA (#PCDATA)>
+<!ELEMENT Month (#PCDATA)>
+<!ELEMENT NlmDcmsID (#PCDATA)>
+<!ELEMENT NlmUniqueID (#PCDATA)>
+<!ELEMENT OtherAbstract (AbstractText,CopyrightInformation?)>
+<!ATTLIST OtherAbstract Type (AIDS | NASA | Undetermined) #REQUIRED>
+<!ELEMENT OtherID (#PCDATA)>
+<!ATTLIST OtherID Source (LHC | NASA | NLM | HMA) #REQUIRED>
+<!ELEMENT OtherInformation (#PCDATA)>
+<!ELEMENT Pagination ((StartPage, EndPage?, MedlinePgn?) | MedlinePgn)>
+<!ELEMENT PersonalNameSubject (LastName,ForeName?, Initials?,Suffix?)>
+<!ELEMENT PersonalNameSubjectList (PersonalNameSubject+)>
+<!ELEMENT PubDate ((Year, ((Month, Day?) | Season)?) | MedlineDate)>
+<!ELEMENT PublicationType (#PCDATA)>
+<!ELEMENT PublicationTypeList (PublicationType+)>
+<!ELEMENT Season (#PCDATA)>
+<!ELEMENT SpaceFlightMission (#PCDATA)>
+<!ELEMENT StartPage (#PCDATA)>
+<!ELEMENT Suffix (#PCDATA)>
+<!ELEMENT Title (#PCDATA)>
+<!ELEMENT VernacularTitle (#PCDATA)>
+<!ELEMENT Volume (#PCDATA)>
+<!ELEMENT Year (#PCDATA)>
+<!--	MeetingAbstractSet	-->
+<!ELEMENT MeetingAbstractSet (MeetingAbstract*, DeleteMeetingAbstract?)>
+<!ELEMENT MeetingAbstract (NlmDcmsID, DateCreated, DateCompleted?, DateRevised?, Article, MedlineJournalInfo, CitationSubset*, GeneSymbolList?, OtherID*, OtherAbstract*, PersonalNameSubjectList?, KeywordList*, SpaceFlightMission*, InvestigatorList?, GeneralNote*)>
+<!ATTLIST MeetingAbstract Owner (AIDS | NLM | NASA | HMA | NOTNLM | LHC) "NLM" Status (In-Process | Completed)  #REQUIRED>
