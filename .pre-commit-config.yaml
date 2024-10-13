@@ -1,17 +1,39 @@
 repos:
-  - repo: https://github.com/pre-commit/mirrors-black
-    rev: stable
-    hooks:
-      - id: black
-        language_version: python3.10
-
-  - repo: https://github.com/psf/black
-    rev: stable
-    hooks:
-      - id: black
-        language_version: python3.10
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.4.0
     hooks:
+      - id: check-case-conflict
+      - id: check-ast
       - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.9.0
+    hooks:
+      - id: reorder-python-imports
+        args: [--application-directories, src/]
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.6.0
+    hooks:
+      - id: docformatter
+  - repo: local
+    hooks:
+      - id: pylint
+        name: PyLint
+        entry: pylint
+        language: system
+        types:
+          - python
+  - repo: local
+    hooks:
+      - id: mypy
+        name: MyPy
+        entry: mypy
+        args: [--ignore-missing-imports]
+        language: system
+        types:
+          - python
