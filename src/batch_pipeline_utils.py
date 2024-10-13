@@ -1,4 +1,3 @@
-import dataclasses
 import itertools
 import re
 import sqlite3
@@ -8,13 +7,7 @@ import pandas as pd
 from lxml import etree
 from lxml.etree import _Element
 from lxml.etree import _ElementTree
-
-
-@dataclasses.dataclass
-class KeywordPair:
-    nlm_dcms_id: str
-    keyword_1: str | None
-    keyword_2: str | None
+from src.keyword_pair_dataclass import KeywordPair
 
 
 def get_xlm_tree(file_path: str) -> _ElementTree:
@@ -126,15 +119,6 @@ def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
         keyword_pairs_from_article = parse_single_meeting_abstract(meeting_abstract)
         articles.extend(keyword_pairs_from_article)
     return pd.DataFrame(articles)
-
-
-def create_connection(db_file: str) -> sqlite3.Connection | None:
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-    except sqlite3.Error as e:
-        print(e)
-    return conn
 
 
 def groupby_keyword_count_unique_ids(df: pd.DataFrame) -> pd.DataFrame:
