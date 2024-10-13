@@ -1,4 +1,8 @@
+import os
+import sqlite3
+
 import pytest
+from causaly.src.batch_pipeline_utils import create_connection
 from causaly.src.batch_pipeline_utils import get_all_elements
 from causaly.src.batch_pipeline_utils import get_lowercase_of_string
 from causaly.src.batch_pipeline_utils import get_permutations_of_size_n
@@ -106,3 +110,17 @@ def test_get_permutations_of_size_n():
         ("c", "b"),
     ]
     assert result == expected_result
+
+
+def test_create_connection_with_valid_db_file():
+    conn = create_connection("test.db")
+    assert isinstance(conn, sqlite3.Connection)
+    if os.path.exists("test.db"):
+        os.remove("test.db")
+    else:
+        raise FileNotFoundError("test.db file not found")
+
+
+def test_create_connection_with_invalid_db_file():
+    conn = create_connection("/invalid/path/to/db_file.db")
+    assert conn is None
