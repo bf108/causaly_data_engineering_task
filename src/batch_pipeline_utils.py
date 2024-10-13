@@ -25,11 +25,6 @@ def get_single_element(
     return element
 
 
-def get_element_text(element: _Element) -> str | None:
-    element_str = element.text
-    return element_str
-
-
 def get_all_elements(
     tree: _ElementTree | _Element,
     element: str,
@@ -71,7 +66,7 @@ def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
         # Find the NlmDcmsID - Unique ID
         nlm_dcms_id_element = get_single_element(meeting_abstract, "NlmDcmsID")
         if nlm_dcms_id_element:
-            nlm_dcms_id = get_element_text(nlm_dcms_id_element)
+            nlm_dcms_id = nlm_dcms_id_element.text
             # Find all KeywordList elements and extract Keyword elements
             keyword_lists = get_all_elements(
                 meeting_abstract,
