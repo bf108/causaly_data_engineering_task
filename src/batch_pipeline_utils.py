@@ -126,3 +126,15 @@ def create_connection(db_file: str) -> sqlite3.Connection | None:
     except sqlite3.Error as e:
         print(e)
     return conn
+
+
+def groupby_keyword_count_unique_ids(df: pd.DataFrame) -> pd.DataFrame:
+    df_output = (
+        df.groupby(by=["keyword_1", "keyword_2"])["nlm_dcms_id"]
+        .nunique()
+        .reset_index()
+        .sort_values(by="nlm_dcms_id", ascending=False)
+        .reset_index(drop=True)
+    )
+    df_output.rename(columns={"nlm_dcms_id": "frequency"}, inplace=True)
+    return df_output
