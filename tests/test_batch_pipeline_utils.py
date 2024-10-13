@@ -1,19 +1,19 @@
 import pytest
+from causaly.src.batch_pipeline_utils import get_all_elements
+from causaly.src.batch_pipeline_utils import get_single_element
+from causaly.src.batch_pipeline_utils import get_xlm_tree
 from lxml import etree
-from causaly.src.batch_pipeline_utils import (get_xlm_tree,
-                                              get_single_element,
-                                              get_all_elements)
 
 
 def test_get_xlm_tree_passes():
     expected = etree._ElementTree
-    actual = get_xlm_tree('data/dummy.xml')
+    actual = get_xlm_tree("data/dummy.xml")
     assert type(actual) == expected
 
 
 def test_get_xlm_tree_fails_no_file():
     with pytest.raises(OSError):
-        get_xlm_tree('data/does_not_exist.xml')
+        get_xlm_tree("data/does_not_exist.xml")
 
 
 def test_get_single_element_returns_correct_element_when_element_exists():
@@ -30,6 +30,7 @@ def test_get_single_element_returns_correct_element_when_element_exists():
     assert actual_element.tag == expected_element.tag
     assert actual_element.text == expected_element.text
 
+
 def test_get_single_element_returns_none_when_element_does_not_exist():
     # Given
     xml_string = "<root><child>content</child></root>"
@@ -40,6 +41,7 @@ def test_get_single_element_returns_none_when_element_does_not_exist():
 
     # Then
     assert actual_element is None
+
 
 def test_get_single_element_raises_error_when_tree_is_none():
     # Given
@@ -52,10 +54,10 @@ def test_get_single_element_raises_error_when_tree_is_none():
 
 def test_get_all_elements():
     # Given
-    tree = get_xlm_tree('data/dummy.xml')
+    tree = get_xlm_tree("data/dummy.xml")
 
     # When
-    actual_ids_elms = get_all_elements(tree, 'OtherID')
+    actual_ids_elms = get_all_elements(tree, "OtherID")
     actual_ids_elms_str = sorted([el.text for el in actual_ids_elms])
 
     # Then
@@ -66,10 +68,10 @@ def test_get_all_elements():
 
 def test_get_all_elements_no_matches():
     # Given
-    tree = get_xlm_tree('data/dummy.xml')
+    tree = get_xlm_tree("data/dummy.xml")
 
     # When
-    actual_ids_elms = get_all_elements(tree, 'OtherIDNotPresent')
+    actual_ids_elms = get_all_elements(tree, "OtherIDNotPresent")
 
     # Then
     assert actual_ids_elms == []
