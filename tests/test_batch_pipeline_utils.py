@@ -1,6 +1,7 @@
 import os
 import sqlite3
 
+import pandas as pd
 import pytest
 from causaly.src.batch_pipeline_utils import create_connection
 from causaly.src.batch_pipeline_utils import get_all_elements
@@ -8,6 +9,7 @@ from causaly.src.batch_pipeline_utils import get_lowercase_of_string
 from causaly.src.batch_pipeline_utils import get_permutations_of_size_n
 from causaly.src.batch_pipeline_utils import get_single_element
 from causaly.src.batch_pipeline_utils import get_xlm_tree
+from causaly.src.batch_pipeline_utils import groupby_keyword_count_unique_ids
 from causaly.src.batch_pipeline_utils import replace_comma_space_with_underscore
 from lxml import etree
 
@@ -124,3 +126,26 @@ def test_create_connection_with_valid_db_file():
 def test_create_connection_with_invalid_db_file():
     conn = create_connection("/invalid/path/to/db_file.db")
     assert conn is None
+
+
+def test_groupby_keyword_count_unique_ids():
+    # Given
+    data = {
+        "keyword_1": ["kw1", "kw1", "kw2", "kw2", "kw3"],
+        "keyword_2": ["kw2", "kw2", "kw3", "kw3", "kw1"],
+        "nlm_dcms_id": ["id1", "id2", "id1", "id2", "id3"],
+    }
+    df = pd.DataFrame(data)
+
+    # When
+    result = groupby_keyword_count_unique_ids(df)
+
+    # Then
+    expected_result = pd.DataFrame(
+        {
+            "keyword_1": ["kw1", "kw2", "kw3"],
+            "keyword_2": ["kw2", "kw3", "kw1"],
+            "frequency": [2, 2, 1],
+        }
+    )
+    pd.testing.assert_frame_equal(result, expected_result)
