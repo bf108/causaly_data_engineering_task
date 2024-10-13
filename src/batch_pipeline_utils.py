@@ -147,3 +147,9 @@ def groupby_keyword_count_unique_ids(df: pd.DataFrame) -> pd.DataFrame:
     )
     df_output.rename(columns={"nlm_dcms_id": "frequency"}, inplace=True)
     return df_output
+
+
+def get_keyword_pairs_from_meeting_abstract(meeting_abstract: str) -> list[KeywordPair]:
+    meeting_abstract_xlm = etree.fromstring(meeting_abstract)
+    keyword_pairs = parse_single_meeting_abstract(meeting_abstract_xlm)
+    return keyword_pairs
