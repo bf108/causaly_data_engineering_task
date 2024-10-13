@@ -1,3 +1,4 @@
+import itertools
 import re
 from typing import Optional
 
@@ -45,3 +46,7 @@ def get_lowercase_of_string(s: str) -> str:
 
 def replace_comma_space_with_underscore(s: str) -> str:
     return re.sub(r",?\s+", "_", s)
+
+
+def get_permutations_of_size_n(values: list[str], n: int) -> list[tuple[str, ...]]:
+    return list(itertools.permutations(values, n))
