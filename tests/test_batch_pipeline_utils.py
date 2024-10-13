@@ -1,6 +1,8 @@
 import pytest
 from lxml import etree
-from causaly.src.batch_pipeline_utils import get_xlm_tree, get_single_element, get_element_text
+from causaly.src.batch_pipeline_utils import (get_xlm_tree,
+                                              get_single_element,
+                                              get_all_elements)
 
 
 def test_get_xlm_tree_passes():
@@ -46,3 +48,28 @@ def test_get_single_element_raises_error_when_tree_is_none():
     # When/Then
     with pytest.raises(AttributeError):
         get_single_element(tree, "child")
+
+
+def test_get_all_elements():
+    # Given
+    tree = get_xlm_tree('data/dummy.xml')
+
+    # When
+    actual_ids_elms = get_all_elements(tree, 'OtherID')
+    actual_ids_elms_str = sorted([el.text for el in actual_ids_elms])
+
+    # Then
+    expected = sorted(["20600308", "NASA/00024699"])
+
+    assert actual_ids_elms_str == expected
+
+
+def test_get_all_elements_no_matches():
+    # Given
+    tree = get_xlm_tree('data/dummy.xml')
+
+    # When
+    actual_ids_elms = get_all_elements(tree, 'OtherIDNotPresent')
+
+    # Then
+    assert actual_ids_elms == []
