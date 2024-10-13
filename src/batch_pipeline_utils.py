@@ -1,3 +1,4 @@
+import dataclasses
 import itertools
 import re
 import sqlite3
@@ -7,6 +8,13 @@ import pandas as pd
 from lxml import etree
 from lxml.etree import _Element
 from lxml.etree import _ElementTree
+
+
+@dataclasses.dataclass
+class KeywordPair:
+    nlm_dcms_id: str
+    keyword_1: str | None
+    keyword_2: str | None
 
 
 def get_xlm_tree(file_path: str) -> _ElementTree:
@@ -57,6 +65,57 @@ def standardize_string(s: str) -> str:
     return s
 
 
+def parse_single_meeting_abstract(
+    meeting_abstract: _Element,
+) -> list[KeywordPair]:
+    articles = []
+    nlm_dcms_id_element = get_single_element(meeting_abstract, "NlmDcmsID")
+    if isinstance(nlm_dcms_id_element, _Element) and nlm_dcms_id_element.text:
+        nlm_dcms_id = nlm_dcms_id_element.text
+        # Find all KeywordList elements and extract Keyword elements
+        keyword_lists = get_all_elements(
+            meeting_abstract,
+            "KeywordList",
+            attribute_value='Owner="NLM-AUTO"',
+        )
+        keywords = [
+            keyword
+            for keyword_list in keyword_lists
+            for keyword in get_all_elements(keyword_list, "Keyword")
+        ]
+        # Handle for any duplicate keywords referenced on articles
+        keywords_strings = set()
+        for keyword in keywords:
+            keyword_string = keyword.text
+            if keyword_string:
+                keywords_strings.add(keyword_string)
+
+        keywords_strings_processed = sorted(
+            [standardize_string(keyword) for keyword in list(keywords_strings)]
+        )
+        if not keywords_strings_processed:
+            article = KeywordPair(
+                nlm_dcms_id=nlm_dcms_id, keyword_1=None, keyword_2=None
+            )
+            articles.append(article)
+        elif len(keywords_strings_processed) == 1:
+            article = KeywordPair(
+                nlm_dcms_id=nlm_dcms_id,
+                keyword_1=keywords_strings_processed[0],
+                keyword_2=None,
+            )
+            articles.append(article)
+        else:
+            # keyword_pairs = get_combinations_of_size_n(keywords_strings_processed, 2)
+            keyword_pairs = get_permutations_of_size_n(keywords_strings_processed, 2)
+            for kw1, kw2 in keyword_pairs:
+                article = KeywordPair(
+                    nlm_dcms_id=nlm_dcms_id, keyword_1=kw1, keyword_2=kw2
+                )
+                articles.append(article)
+    return articles
+
+
 def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
     tree = get_xlm_tree(file_path)
     meeting_abstracts = get_all_elements(tree, "MeetingAbstract")
@@ -64,58 +123,8 @@ def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
 
     # Loop over all MeetingAbstract elements and extract the required data
     for meeting_abstract in meeting_abstracts:
-        # Find the NlmDcmsID - Unique ID
-        nlm_dcms_id_element = get_single_element(meeting_abstract, "NlmDcmsID")
-        if isinstance(nlm_dcms_id_element, _Element):
-            nlm_dcms_id = nlm_dcms_id_element.text
-            # Find all KeywordList elements and extract Keyword elements
-            keyword_lists = get_all_elements(
-                meeting_abstract,
-                "KeywordList",
-                attribute_value='Owner="NLM-AUTO"',
-            )
-            keywords = [
-                keyword
-                for keyword_list in keyword_lists
-                for keyword in get_all_elements(keyword_list, "Keyword")
-            ]
-            # Handle for any duplicate keywords referenced on articles
-            keywords_strings = set()
-            for keyword in keywords:
-                keyword_string = keyword.text
-                if keyword_string:
-                    keywords_strings.add(keyword_string)
-
-            keywords_strings_processed = sorted(
-                [standardize_string(keyword) for keyword in list(keywords_strings)]
-            )
-            if not keywords_strings_processed:
-                article = {
-                    "nlm_dcms_id": nlm_dcms_id,
-                    "keyword_1": None,
-                    "keyword_2": None,
-                }
-                articles.append(article)
-            elif len(keywords_strings_processed) == 1:
-                article = {
-                    "nlm_dcms_id": nlm_dcms_id,
-                    "keyword_1": keywords_strings_processed[0],
-                    "keyword_2": None,
-                }
-                articles.append(article)
-            else:
-                # keyword_pairs = get_combinations_of_size_n(keywords_strings_processed, 2)
-                keyword_pairs = get_permutations_of_size_n(
-                    keywords_strings_processed, 2
-                )
-                for kw1, kw2 in keyword_pairs:
-                    article = {
-                        "nlm_dcms_id": nlm_dcms_id,
-                        "keyword_1": kw1,
-                        "keyword_2": kw2,
-                    }
-                    articles.append(article)
-
+        keyword_pairs_from_article = parse_single_meeting_abstract(meeting_abstract)
+        articles.extend(keyword_pairs_from_article)
     return pd.DataFrame(articles)
 
 
