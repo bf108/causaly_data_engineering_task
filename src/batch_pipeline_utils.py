@@ -1,5 +1,6 @@
 import itertools
 import re
+import sqlite3
 from typing import Optional
 
 import pandas as pd
@@ -116,3 +117,12 @@ def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
                     articles.append(article)
 
     return pd.DataFrame(articles)
+
+
+def create_connection(db_file: str) -> sqlite3.Connection | None:
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except sqlite3.Error as e:
+        print(e)
+    return conn
