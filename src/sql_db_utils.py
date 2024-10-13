@@ -1,5 +1,16 @@
 import sqlite3
 
+from src.keyword_pair_dataclass import KeywordPair
+
+
+def create_connection(db_file: str) -> sqlite3.Connection | None:
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except sqlite3.Error as e:
+        print(e)
+    return conn
+
 
 def get_most_occurring_keywords_from_sql(
     conn: sqlite3.Connection, search_string: str
