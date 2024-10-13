@@ -1,3 +1,4 @@
+import re
 from typing import Optional
 
 from lxml import etree
@@ -36,3 +37,11 @@ def get_all_elements(
         search_string += f"[@{attribute_value}]"
     elements = tree.findall(search_string)
     return elements
+
+
+def get_lowercase_of_string(s: str) -> str:
+    return s.lower()
+
+
+def replace_comma_space_with_underscore(s: str) -> str:
+    return re.sub(r",?\s+", "_", s)
