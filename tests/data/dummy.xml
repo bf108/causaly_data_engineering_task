@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE MeetingAbstractSet
+        PUBLIC "-//NLM//DTD MeetingAbstract, 1st January, 2012//EN" "https://www.nlm.nih.gov/databases/dtd/nlmmeetingabstractset_120101.dtd">
+<MeetingAbstractSet>
+    <MeetingAbstract Owner="NASA" Status="Completed">
+        <NlmDcmsID>102184889</NlmDcmsID>
+        <DateCreated>
+            <Year>2000</Year>
+            <Month>02</Month>
+            <Day>24</Day>
+        </DateCreated>
+        <DateCompleted>
+            <Year>2000</Year>
+            <Month>03</Month>
+            <Day>01</Day>
+        </DateCompleted>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">0016-5085</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>116</Volume>
+                    <Issue>4 Pt 2</Issue>
+                    <PubDate>
+                        <Year>1999</Year>
+                        <Month>Apr</Month>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Gastroenterology</Title>
+                <ISOAbbreviation>Gastroenterology</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>The virtual esophagus: a new tool for examination of esophageal motility.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>A1060</MedlinePgn>
+            </Pagination>
+            <Abstract>
+                <AbstractText>INTRODUCTlON: Alterations of normal esophageal motility are involved in a variety of clinical disorders that may be categorized into two broad classes: hypermotility disorders and hypomotility disorders. Esophageal motility disorders can be understood as hyper/hypo-states of normal esophageal physiological function. This study proposes a virtual reality simulation of esophageal motility that will enhance our understanding of the geometry and biomechanics of physiological and pathophysiological states of the esophagus. METHODS: The development of a time dependent 3-dimensional computer simulation of esophageal motility was performed in two phases. Phase 1 included the 3-dimensional reconstruction of the National Library of Medicine's Visible Male GI tract. ROSS software developed by NASA Ames Bioinformatics Center was used to produce the surface reconstruction of the esophagus. The reconstruction extends from the upper esophageal sphincter (UES) to the lower esophageal sphincter (LES). Phase 2 involved application of experimentally based motility equations to the reconstruction to simulate esophageal peristaltic motion. Modifications of the equations that describe motion allow for the simulation of anamolous states of motility. RESULTS: A video of an anatomically accurate model of esophageal motility which allows for the visualization and study of biomechanical function in the esophagus will be presented. CONCLUSION: The interactive 3-dimensional simulation will serve as a useful tool in the study of esophageal disease states. For instance, the simulation could be used to reduce tone in the LES to simulate GERD or to couple increased tone in the esophageal wall with decreased motility to simulate achalasia. The simulation may also be applied as a tool to enhance GI anatomical/physiological education and to the study of the effects of aging and weightlessness on esophageal function.</AbstractText>
+            </Abstract>
+            <Affiliation>Univ of Arkansas for Med Sci, Little Rock, USA.</Affiliation>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Pasley</LastName>
+                    <ForeName>J N</ForeName>
+                    <Initials>JN</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Sumpter</LastName>
+                    <ForeName>J A</ForeName>
+                    <Initials>JA</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Compadre</LastName>
+                    <ForeName>C M</ForeName>
+                    <Initials>CM</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Ross</LastName>
+                    <ForeName>M D</ForeName>
+                    <Initials>MD</Initials>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Breen</LastName>
+                    <ForeName>P J</ForeName>
+                    <Initials>PJ</Initials>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType>Meeting Abstracts</PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>United States</Country>
+            <MedlineTA>Gastroenterology</MedlineTA>
+            <NlmUniqueID>0374630</NlmUniqueID>
+            <ISSNLinking>0016-5085</ISSNLinking>
+        </MedlineJournalInfo>
+        <CitationSubset>S</CitationSubset>
+        <OtherID Source="LHC">20600308</OtherID>
+        <OtherID Source="NASA">NASA/00024699</OtherID>
+        <KeywordList Owner="NASA">
+            <Keyword MajorTopicYN="N">NASA Center ARC</Keyword>
+            <Keyword MajorTopicYN="N">NASA Discipline Neuroscience</Keyword>
+        </KeywordList>
+        <KeywordList Owner="NLM-AUTO">
+            <Keyword MajorTopicYN="N">Esophageal Achalasia</Keyword>
+            <Keyword MajorTopicYN="N">Esophageal Diseases</Keyword>
+            <Keyword MajorTopicYN="N">Esophageal Motility Disorders</Keyword>
+            <Keyword MajorTopicYN="N">Esophageal Sphincter, Lower</Keyword>
+            <Keyword MajorTopicYN="N">Esophageal Sphincter, Upper</Keyword>
+            <Keyword MajorTopicYN="N">Esophagus</Keyword>
+            <Keyword MajorTopicYN="N">Gastroesophageal Reflux</Keyword>
+            <Keyword MajorTopicYN="N">Gastrointestinal Tract</Keyword>
+            <Keyword MajorTopicYN="N">Humans</Keyword>
+            <Keyword MajorTopicYN="N">Male</Keyword>
+            <Keyword MajorTopicYN="N">Obesity, Morbid</Keyword>
+            <Keyword MajorTopicYN="N">Peristalsis</Keyword>
+            <Keyword MajorTopicYN="N">Physical Examination</Keyword>
+        </KeywordList>
+        <InvestigatorList>
+            <Investigator ValidYN="Y">
+                <LastName>Ross</LastName>
+                <ForeName>M D</ForeName>
+                <Initials>MD</Initials>
+                <Affiliation>ARC</Affiliation>
+            </Investigator>
+        </InvestigatorList>
+        <GeneralNote Owner="NASA">Meeting held in: United States</GeneralNote>
+    </MeetingAbstract>
+</MeetingAbstractSet>
