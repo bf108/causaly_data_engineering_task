@@ -1,0 +1,7 @@
+.venv
+.pytest_cache
+.gitignore
+test_*.py
+*.db
+.mypy_cache
+.pytest_cache
