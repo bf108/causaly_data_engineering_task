@@ -1,7 +1,9 @@
 import pytest
 from causaly.src.batch_pipeline_utils import get_all_elements
+from causaly.src.batch_pipeline_utils import get_lowercase_of_string
 from causaly.src.batch_pipeline_utils import get_single_element
 from causaly.src.batch_pipeline_utils import get_xlm_tree
+from causaly.src.batch_pipeline_utils import replace_comma_space_with_underscore
 from lxml import etree
 
 
@@ -75,3 +77,16 @@ def test_get_all_elements_no_matches():
 
     # Then
     assert actual_ids_elms == []
+
+
+def test_get_lowercase_of_string():
+    assert get_lowercase_of_string("HELLO") == "hello"
+    assert get_lowercase_of_string("Hello") == "hello"
+    assert get_lowercase_of_string("hello") == "hello"
+
+
+def test_replace_comma_space_with_underscore():
+    assert replace_comma_space_with_underscore("hello, world") == "hello_world"
+    assert replace_comma_space_with_underscore("hello,world") == "hello,world"
+    assert replace_comma_space_with_underscore("hello world") == "hello_world"
+    assert replace_comma_space_with_underscore("hello,    world") == "hello_world"
