@@ -1,9 +1,9 @@
 import sqlite3
 from pathlib import Path
 
-from causaly.src.batch_pipeline_utils import create_connection
-from causaly.src.batch_pipeline_utils import groupby_keyword_count_unique_ids
-from causaly.src.batch_pipeline_utils import parse_all_meeting_abstracts
+from src.batch_pipeline_utils import create_connection
+from src.batch_pipeline_utils import groupby_keyword_count_unique_ids
+from src.batch_pipeline_utils import parse_all_meeting_abstracts
 
 
 if __name__ == "__main__":
