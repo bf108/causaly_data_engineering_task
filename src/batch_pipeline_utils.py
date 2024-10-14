@@ -1,6 +1,5 @@
 import itertools
 import re
-import sqlite3
 from typing import Optional
 
 import pandas as pd
