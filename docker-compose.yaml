@@ -222,5 +222,14 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8010:80"
+
 volumes:
   postgres-db-volume:

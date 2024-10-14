@@ -1,15 +1,15 @@
 import sqlite3
-from pathlib import Path
 
 from fastapi import FastAPI
-from src.batch_pipeline_utils import get_keyword_pairs_from_meeting_abstract
-from src.batch_pipeline_utils import standardize_string
-from src.sql_db_utils import create_connection
-from src.sql_db_utils import get_most_occurring_keywords_from_sql
-from src.sql_db_utils import update_data_store
+
+from batch_pipeline_utils import get_keyword_pairs_from_meeting_abstract
+from batch_pipeline_utils import standardize_string
+from sql_db_utils import create_connection
+from sql_db_utils import get_most_occurring_keywords_from_sql
+from sql_db_utils import update_data_store
 
 
-DB = str(Path(__file__).parent / "data/meeting_abstracts.db")
+DB = "data/meeting_abstracts_airflow.db"
 
 app = FastAPI()
 
