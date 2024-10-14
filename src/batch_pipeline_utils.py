@@ -15,11 +15,6 @@ def get_xlm_tree(file_path: str) -> _ElementTree:
     return tree
 
 
-def get_root_element(tree: _ElementTree) -> _Element:
-    root = tree.getroot()
-    return root
-
-
 def get_single_element(
     tree: _Element | _ElementTree, element_name: str
 ) -> Optional[_Element]:
