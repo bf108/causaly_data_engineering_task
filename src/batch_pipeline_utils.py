@@ -1,13 +1,13 @@
 import itertools
 import re
-import sqlite3
 from typing import Optional
 
 import pandas as pd
 from lxml import etree
 from lxml.etree import _Element
 from lxml.etree import _ElementTree
-from src.keyword_pair_dataclass import KeywordPair
+
+from keyword_pair_dataclass import KeywordPair
 
 
 def get_xlm_tree(file_path: str) -> _ElementTree:
