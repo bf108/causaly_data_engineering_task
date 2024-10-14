@@ -55,7 +55,7 @@ def standardize_string(s: str) -> str:
 
 def parse_single_meeting_abstract(
     meeting_abstract: _Element,
-) -> list[KeywordPair]:
+) -> list[KeywordPair] | list:
     articles = []
     nlm_dcms_id_element = get_single_element(meeting_abstract, "NlmDcmsID")
     if isinstance(nlm_dcms_id_element, _Element) and nlm_dcms_id_element.text:
@@ -78,23 +78,10 @@ def parse_single_meeting_abstract(
             if keyword_string:
                 keywords_strings.add(keyword_string)
 
-        keywords_strings_processed = sorted(
-            [standardize_string(keyword) for keyword in list(keywords_strings)]
-        )
-        if not keywords_strings_processed:
-            article = KeywordPair(
-                nlm_dcms_id=nlm_dcms_id, keyword_1=None, keyword_2=None
+        if len(keywords_strings) >= 2:
+            keywords_strings_processed = sorted(
+                [standardize_string(keyword) for keyword in list(keywords_strings)]
             )
-            articles.append(article)
-        elif len(keywords_strings_processed) == 1:
-            article = KeywordPair(
-                nlm_dcms_id=nlm_dcms_id,
-                keyword_1=keywords_strings_processed[0],
-                keyword_2=None,
-            )
-            articles.append(article)
-        else:
-            # keyword_pairs = get_combinations_of_size_n(keywords_strings_processed, 2)
             keyword_pairs = get_permutations_of_size_n(keywords_strings_processed, 2)
             for kw1, kw2 in keyword_pairs:
                 article = KeywordPair(
