@@ -1,6 +1,6 @@
 import sqlite3
 
-from src.keyword_pair_dataclass import KeywordPair
+from keyword_pair_dataclass import KeywordPair
 
 
 def create_connection(db_file: str) -> sqlite3.Connection | None:
