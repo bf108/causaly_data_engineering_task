@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
-ENV PYTHONPATH "${PYTHONPATH}:/app/src"
+ENV PYTHONPATH "${PYTHONPATH}:/app/src:/app/src/data_pipeline_app/fastapi_app"
 
 
 # Run fast_api_app.py when the container launches
