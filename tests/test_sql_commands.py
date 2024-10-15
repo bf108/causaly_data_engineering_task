@@ -1,11 +1,15 @@
 import os
 import sqlite3
 
-from causaly.src.keyword_pair_dataclass import KeywordPair
-from causaly.src.sql_db_utils import create_connection
-from causaly.src.sql_db_utils import get_keyword_pair_freq_count
-from causaly.src.sql_db_utils import get_most_occurring_keywords_from_sql
-from causaly.src.sql_db_utils import update_data_store
+from data_pipeline_app.pipeline_utils.keyword_pair_dataclass import KeywordPair
+from data_pipeline_app.pipeline_utils.sql_db_utils import create_connection
+from data_pipeline_app.pipeline_utils.sql_db_utils import get_keyword_pair_freq_count
+from data_pipeline_app.pipeline_utils.sql_db_utils import (
+    get_most_occurring_keywords_from_sql,
+)
+from data_pipeline_app.pipeline_utils.sql_db_utils import is_meeting_in_table
+from data_pipeline_app.pipeline_utils.sql_db_utils import update_data_store
+from data_pipeline_app.pipeline_utils.sql_db_utils import update_raw_extracts_table
 
 
 def test_get_most_occurring_keywords_from_sql():
