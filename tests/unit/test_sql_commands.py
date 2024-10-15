@@ -1,5 +1,11 @@
 import os
 import sqlite3
+import sys
+from pathlib import Path
+
+root_dir = Path(__file__).parent.parent.parent
+data_pipeline_app_dir = root_dir / "src"
+sys.path.insert(0, str(data_pipeline_app_dir))
 
 from data_pipeline_app.pipeline_utils.keyword_pair_dataclass import KeywordPair
 from data_pipeline_app.pipeline_utils.sql_db_utils import create_connection
