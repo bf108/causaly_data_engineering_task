@@ -1,6 +1,8 @@
 import sqlite3
 
-from batch_pipeline_utils import parse_all_meeting_abstracts
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import (
+    parse_all_meeting_abstracts,
+)
 
 
 # Stage 1-3: Parse XML file, extract keyword pairs, preprocess keywords

@@ -1,6 +1,8 @@
 import sqlite3
 
-from keyword_pair_dataclass import KeywordPair
+import pandas as pd
+
+from data_pipeline_app.pipeline_utils.keyword_pair_dataclass import KeywordPair
 
 
 def create_connection(db_file: str) -> sqlite3.Connection | None:
@@ -81,3 +83,26 @@ def update_data_store(
             insert_keyword_pair_frequency_table(conn, keyword_pair)
         else:
             update_keyword_pair_frequency_table(conn, keyword_pair)
+
+
+def is_meeting_in_table(conn: sqlite3.Connection, nlm_dcms_id: str) -> bool:
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT COUNT(*)
+        FROM raw_extracts_table
+        WHERE nlm_dcms_id = ?
+        """,
+        (nlm_dcms_id,),
+    )
+    count = cursor.fetchone()
+    return count[0] > 0
+
+
+def update_raw_extracts_table(
+    conn: sqlite3.Connection, keyword_pairs: list[KeywordPair]
+) -> None:
+    cursor = conn.cursor()
+    df = pd.DataFrame(keyword_pairs)
+    df.to_sql("raw_extracts_table", conn, if_exists="append", index=False)
+    conn.commit()

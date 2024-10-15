@@ -7,7 +7,7 @@ from lxml import etree
 from lxml.etree import _Element
 from lxml.etree import _ElementTree
 
-from keyword_pair_dataclass import KeywordPair
+from data_pipeline_app.pipeline_utils.keyword_pair_dataclass import KeywordPair
 
 
 def get_xlm_tree(file_path: str) -> _ElementTree:

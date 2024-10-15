@@ -1,6 +1,6 @@
 import sqlite3
 
-from sql_db_utils import create_connection
+from data_pipeline_app.pipeline_utils.sql_db_utils import create_connection
 
 # Stage 0: Create SQLite3 database
 if __name__ == "__main__":
