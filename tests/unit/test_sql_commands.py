@@ -13,7 +13,7 @@ from data_pipeline_app.pipeline_utils.sql_db_utils import (
 )
 from data_pipeline_app.pipeline_utils.sql_db_utils import is_meeting_in_table
 from data_pipeline_app.pipeline_utils.sql_db_utils import update_data_store
-from data_pipeline_app.pipeline_utils.sql_db_utils import update_raw_extracts_table
+from data_pipeline_app.pipeline_utils.sql_db_utils import update_keyword_pairs_table
 
 
 def test_get_most_occurring_keywords_from_sql():
@@ -135,7 +135,7 @@ def test_is_meeting_in_table():
     cursor = conn.cursor()
     cursor.execute(
         """
-        CREATE TABLE raw_extracts_table (
+        CREATE TABLE keyword_pairs_table (
             nlm_dcms_id TEXT,
             keyword_1 TEXT,
             keyword_2 TEXT
@@ -144,7 +144,7 @@ def test_is_meeting_in_table():
     )
     cursor.execute(
         """
-        INSERT INTO raw_extracts_table (nlm_dcms_id, keyword_1, keyword_2)
+        INSERT INTO keyword_pairs_table (nlm_dcms_id, keyword_1, keyword_2)
         VALUES
         ("id1", "kw1", "kw2"),
         ("id2","kw1", "kw3");
@@ -169,13 +169,13 @@ def test_is_meeting_in_table():
     conn.close()
 
 
-def test_update_raw_extracts_table():
+def test_update_keyword_pairs_table():
     # Given
     conn = sqlite3.connect(":memory:")
     cursor = conn.cursor()
     cursor.execute(
         """
-        CREATE TABLE raw_extracts_table (
+        CREATE TABLE keyword_pairs_table (
             nlm_dcms_id TEXT,
             keyword_1 TEXT,
             keyword_2 TEXT
@@ -185,7 +185,7 @@ def test_update_raw_extracts_table():
 
     cursor.execute(
         """
-        INSERT INTO raw_extracts_table (nlm_dcms_id, keyword_1, keyword_2)
+        INSERT INTO keyword_pairs_table (nlm_dcms_id, keyword_1, keyword_2)
         VALUES
         ("id1", "kw1", "kw2"),
         ("id2","kw2", "kw3");
@@ -200,10 +200,10 @@ def test_update_raw_extracts_table():
     ]
 
     # When
-    update_raw_extracts_table(conn, keyword_pairs)  # type: ignore
+    update_keyword_pairs_table(conn, keyword_pairs)  # type: ignore
 
     # Then
-    cursor.execute("SELECT * FROM raw_extracts_table")
+    cursor.execute("SELECT * FROM keyword_pairs_table")
     result = cursor.fetchall()
     expected_result = [
         ("id1", "kw1", "kw2"),

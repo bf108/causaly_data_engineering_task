@@ -11,7 +11,7 @@ if __name__ == "__main__":
     sql_statement = """
         CREATE TABLE keyword_pair_frequency_table AS
         SELECT keyword_1, keyword_2, COUNT(DISTINCT( nlm_dcms_id)) AS frequency
-        FROM raw_extracts_table
+        FROM keyword_pairs_table
         GROUP BY keyword_1, keyword_2;
     """
     print(sql_statement)

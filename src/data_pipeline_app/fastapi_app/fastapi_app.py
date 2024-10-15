@@ -10,7 +10,7 @@ from data_pipeline_app.pipeline_utils.sql_db_utils import (
 )
 from data_pipeline_app.pipeline_utils.sql_db_utils import is_meeting_in_table
 from data_pipeline_app.pipeline_utils.sql_db_utils import update_data_store
-from data_pipeline_app.pipeline_utils.sql_db_utils import update_raw_extracts_table
+from data_pipeline_app.pipeline_utils.sql_db_utils import update_keyword_pairs_table
 
 
 app = FastAPI()
@@ -49,8 +49,8 @@ async def add_meeting_abstract(meeting_abstract: str):
     if is_meeting_in_table(conn, nlm_dcms_id):
         conn.close()
         return {"message": "Meeting abstract already exists in the database"}
-    print("Updating raw_extracts_table")
-    update_raw_extracts_table(conn, keyword_pairs)
+    print("Updating keyword_pairs_table")
+    update_keyword_pairs_table(conn, keyword_pairs)
     print("Updating keyword_pair_frequency_table")
     update_data_store(conn, keyword_pairs)
     conn.close()

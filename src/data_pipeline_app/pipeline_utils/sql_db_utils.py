@@ -82,7 +82,7 @@ def is_meeting_in_table(conn: connection, nlm_dcms_id: str) -> bool:
     cursor.execute(
         f"""
         SELECT COUNT(*)
-        FROM raw_extracts_table
+        FROM keyword_pairs_table
         WHERE nlm_dcms_id = '{nlm_dcms_id}'
         """
     )
@@ -90,16 +90,16 @@ def is_meeting_in_table(conn: connection, nlm_dcms_id: str) -> bool:
     return count[0] > 0
 
 
-def update_raw_extracts_table(
+def update_keyword_pairs_table(
     conn: connection, keyword_pairs: list[KeywordPair]
 ) -> None:
     keyword_pairs_tuples = [
         (kw.nlm_dcms_id, kw.keyword_1, kw.keyword_2) for kw in keyword_pairs
     ]
     if isinstance(conn, connection):
-        query = """INSERT INTO raw_extracts_table (nlm_dcms_id, keyword_1, keyword_2) VALUES (%s, %s, %s)"""
+        query = """INSERT INTO keyword_pairs_table (nlm_dcms_id, keyword_1, keyword_2) VALUES (%s, %s, %s)"""
     elif isinstance(conn, sqlite3.Connection):
-        query = """INSERT INTO raw_extracts_table (nlm_dcms_id, keyword_1, keyword_2) VALUES (?, ?, ?)"""
+        query = """INSERT INTO keyword_pairs_table (nlm_dcms_id, keyword_1, keyword_2) VALUES (?, ?, ?)"""
     else:
         raise ValueError("Connection object not recognized")
 
