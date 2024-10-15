@@ -1,4 +1,3 @@
-import os
 import sqlite3
 import sys
 from pathlib import Path
@@ -201,7 +200,6 @@ def test_update_raw_extracts_table():
     ]
 
     # When
-    # ignore type because sqlalchemy engine is used in same manner as sqlite connection
     update_raw_extracts_table(conn, keyword_pairs)  # type: ignore
 
     # Then

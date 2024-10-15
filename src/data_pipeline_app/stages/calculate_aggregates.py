@@ -17,9 +17,11 @@ if __name__ == "__main__":
     print(sql_statement)
     cur = conn.cursor()
     cur.execute(sql_statement)
+    conn.commit()
     print(
         "Successfully added keyword_pair_frequency_table table to meeting_abstracts_airflow.db"
     )
+
     cur.execute(
         "SELECT * FROM keyword_pair_frequency_table ORDER BY frequency DESC LIMIT 10;"
     )

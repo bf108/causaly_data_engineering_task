@@ -16,11 +16,11 @@ t1 = BashOperator(
     dag=dag,
 )
 
-t2 = BashOperator(
-    task_id="query_keyword_pairs_postgres",
-    bash_command="python /opt/src/data_pipeline_app/stages/query_keyword_pairs_table.py",
-    dag=dag,
-)
+# t2 = BashOperator(
+#     task_id="query_keyword_pairs_postgres",
+#     bash_command="python /opt/src/data_pipeline_app/stages/query_keyword_pairs_table.py",
+#     dag=dag,
+# )
 
 
 t3 = BashOperator(
@@ -29,4 +29,4 @@ t3 = BashOperator(
     dag=dag,
 )
 
-t1 >> t2 >> t3
+t1 >> t3
