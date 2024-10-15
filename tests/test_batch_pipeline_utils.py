@@ -1,13 +1,22 @@
 import pandas as pd
 import pytest
-from causaly.src.batch_pipeline_utils import get_all_elements
-from causaly.src.batch_pipeline_utils import get_lowercase_of_string
-from causaly.src.batch_pipeline_utils import get_permutations_of_size_n
-from causaly.src.batch_pipeline_utils import get_single_element
-from causaly.src.batch_pipeline_utils import get_xlm_tree
-from causaly.src.batch_pipeline_utils import groupby_keyword_count_unique_ids
-from causaly.src.batch_pipeline_utils import replace_comma_space_with_underscore
 from lxml import etree
+
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import get_all_elements
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import (
+    get_lowercase_of_string,
+)
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import (
+    get_permutations_of_size_n,
+)
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import get_single_element
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import get_xlm_tree
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import (
+    groupby_keyword_count_unique_ids,
+)
+from data_pipeline_app.pipeline_utils.batch_pipeline_utils import (
+    replace_comma_space_with_underscore,
+)
 
 
 def test_get_xlm_tree_passes():
