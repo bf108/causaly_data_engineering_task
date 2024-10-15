@@ -8,7 +8,6 @@ data_pipeline_app_dir = root_dir / "src"
 sys.path.insert(0, str(data_pipeline_app_dir))
 
 from data_pipeline_app.pipeline_utils.keyword_pair_dataclass import KeywordPair
-from data_pipeline_app.pipeline_utils.sql_db_utils import create_connection
 from data_pipeline_app.pipeline_utils.sql_db_utils import get_keyword_pair_freq_count
 from data_pipeline_app.pipeline_utils.sql_db_utils import (
     get_most_occurring_keywords_from_sql,
@@ -131,20 +130,6 @@ def test_update_data_store():
     conn.close()
 
 
-def test_create_connection_with_valid_db_file():
-    conn = create_connection("test.db")
-    assert isinstance(conn, sqlite3.Connection)
-    if os.path.exists("test.db"):
-        os.remove("test.db")
-    else:
-        raise FileNotFoundError("test.db file not found")
-
-
-def test_create_connection_with_invalid_db_file():
-    conn = create_connection("/invalid/path/to/db_file.db")
-    assert conn is None
-
-
 def test_is_meeting_in_table():
     # Given
     conn = sqlite3.connect(":memory:")
@@ -216,7 +201,8 @@ def test_update_raw_extracts_table():
     ]
 
     # When
-    update_raw_extracts_table(conn, keyword_pairs)
+    # ignore type because sqlalchemy engine is used in same manner as sqlite connection
+    update_raw_extracts_table(conn, keyword_pairs)  # type: ignore
 
     # Then
     cursor.execute("SELECT * FROM raw_extracts_table")

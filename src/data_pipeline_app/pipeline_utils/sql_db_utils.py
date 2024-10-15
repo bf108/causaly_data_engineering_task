@@ -1,21 +1,12 @@
-import sqlite3
-
 import pandas as pd
+from psycopg2.extensions import connection
+from sqlalchemy.engine import Engine
 
 from data_pipeline_app.pipeline_utils.keyword_pair_dataclass import KeywordPair
 
 
-def create_connection(db_file: str) -> sqlite3.Connection | None:
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-    except sqlite3.Error as e:
-        print(e)
-    return conn
-
-
 def get_most_occurring_keywords_from_sql(
-    conn: sqlite3.Connection, search_string: str
+    conn: connection, search_string: str
 ) -> list[str]:
     cursor = conn.cursor()
     top_keyword_pairs = cursor.execute(
@@ -27,9 +18,7 @@ def get_most_occurring_keywords_from_sql(
     return top_matches
 
 
-def get_keyword_pair_freq_count(
-    conn: sqlite3.Connection, keyword_pair: KeywordPair
-) -> int:
+def get_keyword_pair_freq_count(conn: connection, keyword_pair: KeywordPair) -> int:
     cursor = conn.cursor()
     freq = cursor.execute(
         """
@@ -46,7 +35,7 @@ def get_keyword_pair_freq_count(
 
 
 def update_keyword_pair_frequency_table(
-    conn: sqlite3.Connection, keyword_pair: KeywordPair
+    conn: connection, keyword_pair: KeywordPair
 ) -> None:
     cursor = conn.cursor()
     cursor.execute(
@@ -61,7 +50,7 @@ def update_keyword_pair_frequency_table(
 
 
 def insert_keyword_pair_frequency_table(
-    conn: sqlite3.Connection, keyword_pair: KeywordPair
+    conn: connection, keyword_pair: KeywordPair
 ) -> None:
     cursor = conn.cursor()
     cursor.execute(
@@ -74,9 +63,7 @@ def insert_keyword_pair_frequency_table(
     conn.commit()
 
 
-def update_data_store(
-    conn: sqlite3.Connection, keyword_pairs: list[KeywordPair]
-) -> None:
+def update_data_store(conn: connection, keyword_pairs: list[KeywordPair]) -> None:
     for keyword_pair in keyword_pairs:
         freq = get_keyword_pair_freq_count(conn, keyword_pair)
         if freq == 0:
@@ -85,7 +72,7 @@ def update_data_store(
             update_keyword_pair_frequency_table(conn, keyword_pair)
 
 
-def is_meeting_in_table(conn: sqlite3.Connection, nlm_dcms_id: str) -> bool:
+def is_meeting_in_table(conn: connection, nlm_dcms_id: str) -> bool:
     cursor = conn.cursor()
     cursor.execute(
         """
@@ -99,10 +86,6 @@ def is_meeting_in_table(conn: sqlite3.Connection, nlm_dcms_id: str) -> bool:
     return count[0] > 0
 
 
-def update_raw_extracts_table(
-    conn: sqlite3.Connection, keyword_pairs: list[KeywordPair]
-) -> None:
-    cursor = conn.cursor()
+def update_raw_extracts_table(engine: Engine, keyword_pairs: list[KeywordPair]) -> None:
     df = pd.DataFrame(keyword_pairs)
-    df.to_sql("raw_extracts_table", conn, if_exists="append", index=False)
-    conn.commit()
+    df.to_sql("raw_extracts_table", engine, if_exists="append", index=False)

@@ -94,7 +94,7 @@ def parse_single_meeting_abstract(
 def parse_all_meeting_abstracts(file_path: str) -> pd.DataFrame:
     tree = get_xlm_tree(file_path)
     meeting_abstracts = get_all_elements(tree, "MeetingAbstract")
-    articles = []
+    articles: list[KeywordPair] = []
 
     # Loop over all MeetingAbstract elements and extract the required data
     for meeting_abstract in meeting_abstracts:
