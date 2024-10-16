@@ -16,7 +16,7 @@ from data_pipeline_app.pipeline_utils.sql_db_utils import update_keyword_pairs_t
 app = FastAPI()
 
 
-@app.post("/get_most_occurring_keywords")
+@app.get("/get_most_occurring_keywords")
 async def get_most_occurring_keywords(keyword: str):
     conn = psycopg2.connect(
         host="postgres-datastore",
